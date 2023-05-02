@@ -4,13 +4,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.betboom.pages.TelegramPage;
+import ru.betboom.pages.components.enums.LanguageEnum;
 
 import java.util.List;
-
-import static com.codeborne.selenide.CollectionCondition.texts;
-import static com.codeborne.selenide.Selenide.*;
+import java.util.stream.Stream;
 
 public class TelegramChangeLanguageInHeaderTest {
 TelegramPage telegramPage = new TelegramPage();
@@ -24,12 +24,23 @@ TelegramPage telegramPage = new TelegramPage();
     void setup() {
         telegramPage.openTelegramPage();
     }
-    @MethodSource("ru.betboom.pages.TelegramPage#changeLanguageAndVerifyHeader")
+
+
+
     @ParameterizedTest(name = "Check translate Header on {0}")
+    @MethodSource("changeLanguageAndVerifyHeader")
     void changeLanguageAndVerifyHeader(String language, List<String> expectedValues) {
         telegramPage
                 .expandLanguages()
                 .chooseLanguage(language)
                 .verifyHeader(expectedValues);
+    }
+
+    public static Stream<Object> changeLanguageAndVerifyHeader() {
+        return Stream.of(
+                Arguments.of(LanguageEnum.RU.getLanguages(), List.of("RU", "Twitter", "Главная", "FAQ", "Приложения", "API", "Протокол")),
+                Arguments.of(LanguageEnum.EN.getLanguages(), List.of("EN", "Twitter", "Home", "FAQ", "Apps", "API", "Protocol")),
+                Arguments.of(LanguageEnum.DE.getLanguages(), List.of("DE", "Twitter", "Start", "FAQ", "Apps", "API", "Protokoll"))
+        );
     }
 }

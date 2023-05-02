@@ -2,11 +2,8 @@ package ru.betboom.pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import org.junit.jupiter.params.provider.Arguments;
-import ru.betboom.pages.components.enums.LanguageEnum;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.text;
@@ -41,13 +38,5 @@ public class TelegramPage {
     public TelegramPage chooseLanguage(String language) {
         languageLink(language).click();
         return this;
-    }
-
-    private static Stream<Object> changeLanguageAndVerifyHeader() {
-        return Stream.of(
-                Arguments.of(LanguageEnum.RU.getLanguages(), List.of("RU", "Twitter", "Главная", "FAQ", "Приложения", "API", "Протокол")),
-                Arguments.of(LanguageEnum.EN.getLanguages(), List.of("EN", "Twitter", "Home", "FAQ", "Apps", "API", "Protocol")),
-                Arguments.of(LanguageEnum.DE.getLanguages(), List.of("DE", "Twitter", "Start", "FAQ", "Apps", "API", "Protokoll"))
-        );
     }
 }

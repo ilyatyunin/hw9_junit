@@ -7,9 +7,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import ru.betboom.pages.TelegramPage;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
-
 public class TelegramChangeLanguageInSloganTest {
 TelegramPage telegramPage = new TelegramPage();
     @Tags({
