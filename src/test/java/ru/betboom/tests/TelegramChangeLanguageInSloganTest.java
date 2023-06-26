@@ -27,17 +27,17 @@ TelegramPage telegramPage = new TelegramPage();
             "Deutsch, ein neues Messaging-Zeitalter"
     })
 
-    @ParameterizedTest(name = "Check translate Telegram Slogan on {0}")
+    @ParameterizedTest(name = "Проверка перевода слогана на {0}")
     void getSloganForLanguage(String language, String expectedValues) {
         step("Открытие страницы Telegram", () -> {
             telegramPage.openTelegramPage();
         });
-        step("Выбор языка - {0}", () -> {
+        step("Выбор языка", () -> {
             telegramPage
                     .expandLanguages()
                     .chooseLanguage(language);
         });
-        step("Проверка перевода слогана на язык {0}", () -> {
+        step("Проверка перевода слогана", () -> {
             telegramPage.checkSloganText(expectedValues);
         });
     }

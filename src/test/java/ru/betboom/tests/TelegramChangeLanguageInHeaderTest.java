@@ -29,18 +29,18 @@ TelegramPage telegramPage = new TelegramPage();
 
 
 
-    @ParameterizedTest(name = "Check translate Header on {0}")
+    @ParameterizedTest(name = "Проверка перевода хедера на {0}")
     @MethodSource("changeLanguageAndVerifyHeader")
     void changeLanguageAndVerifyHeader(String language, List<String> expectedValues) {
         step("Открытие страницы Telegram", () -> {
             telegramPage.openTelegramPage();
         });
-        step("Выбор языка - {0}", () -> {
+        step("Выбор языка", () -> {
             telegramPage
                     .expandLanguages()
                     .chooseLanguage(language);
         });
-        step("Проверка перевода Хедера на язык {0}", () -> {
+        step("Проверка перевода Хедера", () -> {
             telegramPage.verifyHeader(expectedValues);
         });
     }
