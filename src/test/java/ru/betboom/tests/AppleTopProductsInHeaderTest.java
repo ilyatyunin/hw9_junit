@@ -18,16 +18,8 @@ ApplePage applePage = new ApplePage();
             @Tag("MAIN"),
             @Tag("CRITICAL")
     })
-    @BeforeAll
-    static void firstConfigure() {
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
-    }
     @BeforeEach
     void setup() {applePage.openApplePage();}
-    @BeforeEach
-    void addListener() {
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
-    }
 
     @ValueSource(strings = {"Mac", "iPad", "iPhone", "Watch", "AirPods"})
 

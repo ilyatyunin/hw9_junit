@@ -24,18 +24,10 @@ TelegramPage telegramPage = new TelegramPage();
             @Tag("MAIN"),
             @Tag("BLOCKER")
     })
-    @BeforeAll
-    static void firstConfigure() {
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
-    }
 
     @BeforeEach
     void setup() {
         telegramPage.openTelegramPage();
-    }
-    @BeforeEach
-    void addListener() {
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
 
 
