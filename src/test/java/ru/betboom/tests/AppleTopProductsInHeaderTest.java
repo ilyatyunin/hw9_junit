@@ -1,15 +1,12 @@
 package ru.betboom.tests;
 
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import ru.betboom.pages.ApplePage;
+
+import static io.qameta.allure.Allure.step;
 
 public class AppleTopProductsInHeaderTest extends TestBase {
 ApplePage applePage = new ApplePage();
@@ -23,7 +20,11 @@ ApplePage applePage = new ApplePage();
 
     @ParameterizedTest(name = "Check product {0} by Apple in Header")
     void checkAppleTopProductInHeader(String productName) {
-        applePage.openApplePage();
-        applePage.checkProductInHeader(productName);
+        step("Открытие страницы Apple", () -> {
+            applePage.openApplePage();
+        });
+        step("Проверка наличия {productName} в Хедере сайта", () -> {
+            applePage.checkProductInHeader(productName);
+        });
     }
 }

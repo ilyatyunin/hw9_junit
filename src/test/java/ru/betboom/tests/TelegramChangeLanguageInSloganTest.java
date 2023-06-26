@@ -11,6 +11,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import ru.betboom.pages.TelegramPage;
 
+import static io.qameta.allure.Allure.step;
+
 public class TelegramChangeLanguageInSloganTest extends TestBase {
 TelegramPage telegramPage = new TelegramPage();
     @Tags({
@@ -27,10 +29,16 @@ TelegramPage telegramPage = new TelegramPage();
 
     @ParameterizedTest(name = "Check translate Telegram Slogan on {0}")
     void getSloganForLanguage(String language, String expectedValues) {
-        telegramPage.openTelegramPage();
-        telegramPage
-                .expandLanguages()
-                .chooseLanguage(language)
-                .checkSloganText(expectedValues);
+        step("Открытие страницы Telegram", () -> {
+            telegramPage.openTelegramPage();
+        });
+        step("Выбор языка - {0}", () -> {
+            telegramPage
+                    .expandLanguages()
+                    .chooseLanguage(language);
+        });
+        step("Проверка перевода слогана на язык {0}", () -> {
+            telegramPage.checkSloganText(expectedValues);
+        });
     }
 }

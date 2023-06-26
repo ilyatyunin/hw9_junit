@@ -16,6 +16,8 @@ import ru.betboom.pages.components.enums.LanguageEnum;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static io.qameta.allure.Allure.step;
+
 public class TelegramChangeLanguageInHeaderTest extends TestBase {
 TelegramPage telegramPage = new TelegramPage();
 
@@ -30,11 +32,17 @@ TelegramPage telegramPage = new TelegramPage();
     @ParameterizedTest(name = "Check translate Header on {0}")
     @MethodSource("changeLanguageAndVerifyHeader")
     void changeLanguageAndVerifyHeader(String language, List<String> expectedValues) {
-        telegramPage.openTelegramPage();
-        telegramPage
-                .expandLanguages()
-                .chooseLanguage(language)
-                .verifyHeader(expectedValues);
+        step("Открытие страницы Telegram", () -> {
+            telegramPage.openTelegramPage();
+        });
+        step("Выбор языка - {0}", () -> {
+            telegramPage
+                    .expandLanguages()
+                    .chooseLanguage(language);
+        });
+        step("Проверка перевода Хедера на язык {0}", () -> {
+            telegramPage.verifyHeader(expectedValues);
+        });
     }
 
     public static Stream<Object> changeLanguageAndVerifyHeader() {
