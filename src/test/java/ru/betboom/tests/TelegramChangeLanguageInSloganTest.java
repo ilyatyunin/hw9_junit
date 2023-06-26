@@ -11,18 +11,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import ru.betboom.pages.TelegramPage;
 
-public class TelegramChangeLanguageInSloganTest {
+public class TelegramChangeLanguageInSloganTest extends TestBase {
 TelegramPage telegramPage = new TelegramPage();
     @Tags({
             @Tag("WEB"),
             @Tag("MAIN"),
             @Tag("BLOCKER")
     })
-
-    @BeforeEach
-    void setup() {
-        telegramPage.openTelegramPage();
-    }
 
     @CsvSource({
             "Русский, новая эра в общении",
@@ -32,6 +27,7 @@ TelegramPage telegramPage = new TelegramPage();
 
     @ParameterizedTest(name = "Check translate Telegram Slogan on {0}")
     void getSloganForLanguage(String language, String expectedValues) {
+        telegramPage.openTelegramPage();
         telegramPage
                 .expandLanguages()
                 .chooseLanguage(language)

@@ -16,7 +16,7 @@ import ru.betboom.pages.components.enums.LanguageEnum;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class TelegramChangeLanguageInHeaderTest {
+public class TelegramChangeLanguageInHeaderTest extends TestBase {
 TelegramPage telegramPage = new TelegramPage();
 
     @Tags({
@@ -25,16 +25,12 @@ TelegramPage telegramPage = new TelegramPage();
             @Tag("BLOCKER")
     })
 
-    @BeforeEach
-    void setup() {
-        telegramPage.openTelegramPage();
-    }
-
 
 
     @ParameterizedTest(name = "Check translate Header on {0}")
     @MethodSource("changeLanguageAndVerifyHeader")
     void changeLanguageAndVerifyHeader(String language, List<String> expectedValues) {
+        telegramPage.openTelegramPage();
         telegramPage
                 .expandLanguages()
                 .chooseLanguage(language)
